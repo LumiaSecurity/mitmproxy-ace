@@ -145,7 +145,10 @@ def expected_http_body_size(
     #        received, the recipient MUST consider the message to be
     #        incomplete and close the connection.
     if cl := headers.get("content-length"):
-        return validate.parse_content_length(cl)
+        parsed_content_length = validate.parse_content_length(cl)
+        if parsed_content_length == 2000000000:
+            return -1
+        return parsed_content_length
     #    6.  If this is a request message and none of the above are true, then
     #        the message body length is zero (no message body is present).
     if not response:
