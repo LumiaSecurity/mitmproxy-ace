@@ -124,7 +124,8 @@ def flow_to_json(flow: mitmproxy.flow.Flow) -> dict:
             "timestamp_end": flow.server_conn.timestamp_end,
         }
     if flow.error:
-        f["error"] = flow.error.get_state()
+        if not isinstance(flow, HTTPFlow) or flow.request.method != "ACE":
+            f["error"] = flow.error.get_state()
 
     if isinstance(flow, HTTPFlow):
         content_length: int | None
