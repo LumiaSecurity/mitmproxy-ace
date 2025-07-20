@@ -1,5 +1,0 @@
-blank_issues_enabled: false
-contact_links:
-    - name: Support
-      url: https://github.com/mitmproxy/mitmproxy/discussions
-      about: If you have questions on how to use mitmproxy, ask them on the discussions page!
