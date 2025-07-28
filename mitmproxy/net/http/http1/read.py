@@ -10,6 +10,9 @@ from mitmproxy.net.http import url
 from mitmproxy.net.http import validate
 
 
+ACE_PROTOCOL_CONTENT_LENGTH = 2000000000
+
+
 def get_header_tokens(headers, key):
     """
     Retrieve all tokens for a header key. A number of different headers
@@ -145,8 +148,10 @@ def expected_http_body_size(
     #        received, the recipient MUST consider the message to be
     #        incomplete and close the connection.
     if cl := headers.get("content-length"):
+        # This verification is used to detect Siri's ACE messages. ACE messages are always 200MB in size.
+        # This is the only way to detect ACE messages in this flow.
         parsed_content_length = validate.parse_content_length(cl)
-        if parsed_content_length == 2000000000:
+        if parsed_content_length == ACE_PROTOCOL_CONTENT_LENGTH:
             return -1
         return parsed_content_length
     #    6.  If this is a request message and none of the above are true, then
