@@ -19,6 +19,13 @@ interface for HTTP/1, HTTP/2, and WebSockets.
 The installation instructions are [here](https://docs.mitmproxy.org/stable/overview-installation).
 If you want to install from source, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+## Disabling the Certificate Pinning
+
+To disable Siri's certificate pinning mechanism, install frida-tools, and then run the following command:
+```bash
+sudo frida -n assistantd -l disable_certificate_pinning.js
+```
+
 ## Documentation & Help
 
 General information, tutorials, and precompiled binaries can be found on the mitmproxy website.
